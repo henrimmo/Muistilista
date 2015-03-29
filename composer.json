@@ -3,7 +3,11 @@
 		"classmap": [
 			"config/database.php",
 			"lib",
-			"app/controllers"
+			"app/controllers",
+                        "app/models/account.php",
+                        "app/models/priorityscale.php",
+                        "app/models/task.php",
+                        "app/models/taskclass.php"
 		]
 	},
 	"require": {

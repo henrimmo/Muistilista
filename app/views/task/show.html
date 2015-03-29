@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{task.taskname}}</h1>
+  <p>
+    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+  </p>
+  <!-- Tiedot tulee listana tähän -->
+  <ul>
+    
+
+    <li><strong>Tärkeysaste:</strong> {{task.priority}}</li>
+    <li><strong>Luokka:</strong> {{task.classname}}</li>
+     <li><strong>Status:</strong>
+              {% if task.status %}
+                <label class="label label-success">tehty
+              {% else %}
+                <label class="label label-danger">tekemättä
+              {% endif %}
+          </li>
+  </ul>
+  <!-- Kuvaus tulee tähän -->
+  <p>
+    {{task.description}}
+  </p>
+  
+  <div class="alert alert-success">
+  {{message}}
+</div>
+{% endblock %} 

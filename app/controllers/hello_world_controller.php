@@ -1,15 +1,18 @@
 <?php
-
+  require 'app/models/task.php';  
   class HelloWorldController extends BaseController{
 
     public static function index(){
       // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
    	  echo 'Tämä on etusivu!';
     }
-
+    
     public static function sandbox(){
-      // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      $pyykki = Task::find(1);
+      $tasks = Task::all();
+      
+      Kint::dump($tasks);
+      Kint::dump($pyykki);
     }
     
     public static function task_list() {

@@ -18,7 +18,7 @@ class Task extends BaseModel {
     public static function all() {
         $query = DB::connection()->prepare('SELECT * FROM Task where account =:account');
         
-        $query->execute(array('accound' => $_SESSION['account']));
+        $query->execute(array('account' => $_SESSION['account']));
         
         $rows = $query->fetchAll();
         $tasks = array();

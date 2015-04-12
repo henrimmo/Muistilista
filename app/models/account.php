@@ -8,7 +8,7 @@
 
 class Account extends BaseModel {
     
-    public $id, $username, $username;
+    public $id, $username, $password ;
     
     public function __construct($attributes) {
         parent::__construct($attributes);

@@ -14,23 +14,24 @@ class Account extends BaseModel {
         parent::__construct($attributes);
     }
     
-    public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Account');
+    public static function authenticate($username, $password){
+        $query = DB::connection()->prepare('SELECT * FROM Account WHERE username = :username and password = :password limit 1');
+        $query->execute(array('username' => $username, 'password' => $password));
+        $row = $query->fetch();
         
-        $query->execute();
-        
-        $rows = $query->fetchAll();
-        $accounts = array();
-        
-        foreach($rows as $row){
-            $accounts[] = new Account(array(
+        if($row){
+            return new Account(array(
                 'id' => $row['id'],
-                'username' => $row['username'],
+                'username' =>$row['username'],
                 'password' => $row['password']
             ));
+        }else {
+            return null;
         }
-        return $accounts;
     }
+
+
+
     
     public static function find($id) {
         $query = DB::connection()->prepare('SELECT * FROM Account WHERE id = :id LIMIT 1');
@@ -45,7 +46,7 @@ class Account extends BaseModel {
             ));
             return $account;
         }
-        return null;
+        
     }
 }
 

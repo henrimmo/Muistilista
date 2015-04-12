@@ -45,5 +45,9 @@ class TaskClass extends BaseModel {
         }
         return null;
     }
+    
+    public function validate_name($string, $length) {
+        
+    }
 }
 

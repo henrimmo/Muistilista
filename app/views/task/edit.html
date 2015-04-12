@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Lisää askare listaasi</h1>
-  
-  {% if errors %}
+
+  <h1>Muokkaa askaretta: {{attributes.taskname}}</h1>
+
+    {% if errors %}
   <div class="alert alert-danger">
       <ul>
           {% for error in errors %}
@@ -12,7 +13,7 @@
   </div>
   {% endif %}
 
-  <form method="post" action="{{base_path}}/task">
+  <form method="post" action="{{base_path}}/task/{{attributes.id}}/edit">
     <div class="form-group">
       <label>Nimi</label>
       <input name="taskname" class="form-control" type="text" value="{{attributes.taskname}}">
@@ -20,7 +21,7 @@
 
     <div class="form-group">
       <label>Tärkeysaste</label>
-      <input name="priority" class="form-control" type="text" value="{{attributes.priority}}">
+      <input name="priority" class="form-control" type="text" value ="{{attributes.priority}}">
     </div>
 
     <div class="form-group">
@@ -30,11 +31,13 @@
 
     <div class="form-group">
       <label>Kuvaus</label>
-      <textarea name="description" class="form-control">{{attributes.description}}</textarea>
+      <textarea name="description" class="form-control">{{attributes .description}}</textarea>
     </div>
 
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">Lisää</button>
+      <button type="submit" class="btn btn-primary">Päivitä</button>
+      
     </div>
+    
   </form>
 {% endblock %}

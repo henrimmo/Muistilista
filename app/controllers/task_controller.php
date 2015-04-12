@@ -23,18 +23,68 @@ class TaskController extends BaseController{
     
     public static function store(){
     $params = $_POST;
-    $task = new Task(array(
+    $attributes= array(
       'taskname' => $params['taskname'],
       'priority' => $params['priority'],
       'classname' => $params['classname'],
-      'description' => $params['description']
+      'description' => $params['description'],
+       'account' => $params['account']
       
-    ));
-    //Kint::dump($params);
+    );
+    $task = new Task($attributes);
+    $errors = $task->errors();
     
-    $task->save();
-    Redirect::to('/task/' . $task->id, array('message' => 'Askare lisätty muistilistaasi!'));
+    if(count($errors) == 0) {
+        $task->save();
+        Redirect::to('/task/' . $task->id, array('message' => 'Askare lisätty muistilistaasi!'));
+    }else{
+        View::make('task/new.html', array('errors'=>$errors, 'attributes' => $attributes));
+    }
+    
   }
+  
+  public static function edit($id){
+        $task = Task::find($id);
+        View::make('task/edit.html', array('attributes' => $task));
+    }
+    
+    public static function update($id){
+        $params = $_POST;
+        
+        $attributes = array(
+            'id' => $id,
+            'taskname' => $params['taskname'],
+            'priority' => $params['priority'],
+            'classname' => $params['classname'],
+            'description' => $params['description'],
+            'account' => $_SESSION['account']
+        );
+        
+//      Kint::dump($params);
+        
+        $task = new Task($attributes);
+        $errors = $task->errors();
+        
+        
+//        if(count($errors) == 0){
+//            $task->update();
+//           
+//           Redirect::to('/task/' . $task->id, array('message' => 'Askaretta muokattu onnistuneesti!'));
+//            
+//            
+//        }else{
+//            View::make('task/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+//        }
+    }
+    
+    public static function destroy($id){
+        $task = new Task(array('id' => $id));
+        
+        $task->destroy($id);
+        
+        Redirect::to('/task', array('message' => 'Askare poistettu onnistuneesti!'));
+        
+    }
 }
     
 

@@ -8,16 +8,17 @@
 
 class Task extends BaseModel {
     
-    public $id, $taskname, $priority,  $classname, $description, $status, $account_id, $priority_id, $class_id;
+    public $id, $taskname, $priority,  $classname, $description, $status, $account, $priority_id, $class_id;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_taskname', 'validate_classname');
     }
     
     public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Task');
+        $query = DB::connection()->prepare('SELECT * FROM Task where account =:account');
         
-        $query->execute();
+        $query->execute(array('accound' => $_SESSION['account']));
         
         $rows = $query->fetchAll();
         $tasks = array();
@@ -30,7 +31,7 @@ class Task extends BaseModel {
                 'classname' => $row['classname'],
                 'description' => $row['description'],
                 'status' => $row['status'],
-                'account_id' => $row['account_id'],
+                'account' => $row['account'],
                 'priority_id' => $row['priority_id'],
                 'class_id' => $row['class_id']
             ));
@@ -53,7 +54,7 @@ class Task extends BaseModel {
                 'classname' => $row['classname'],
                 'description' => $row['description'],
                 'status' => $row['status'],
-                'account_id' => $row['account_id'],
+                'account' => $row['account'],
                 'priority_id' => $row['priority_id'],
                 'class_id' => $row['class_id']
             ));
@@ -63,14 +64,46 @@ class Task extends BaseModel {
     }
     
     public function save(){
-    $query = DB::connection()->prepare('INSERT INTO Task (taskname, priority, classname, description) VALUES (:taskname, :priority, :classname , :description) RETURNING id');
-    $query->execute(array('taskname' => $this->taskname, 'priority' => $this->priority, 'classname' => $this->classname, 'description' => $this->description));
+    $query = DB::connection()->prepare('INSERT INTO Task (account, taskname, priority, classname, description) VALUES (:taskname, :priority, :classname , :description) RETURNING id');
+    $query->execute(array('account'=> $_SESSION['account'], 'taskname' => $this->taskname, 'priority' => $this->priority, 'classname' => $this->classname, 'description' => $this->description));
     $row = $query->fetch();
 //    Kint::trace();
 //    Kint::dump($row);
-$this->id = $row['id'];
+    $this->id = $row['id'];
   }
+  
+  
+
+    
+    public function validate_taskname(){
+        return parent::validate_string_length($this->taskname, 3);
+    }
+    
+    public function validate_classname(){
+        return parent::validate_string_length($this->classname, 1);
+    }
+    
+    public function update(){
+        $query = DB::connection()->prepare('UPDATE Task SET (taskname, priority, classname, description) = (:taskname, :priority, :classname, :description) where id = :id');
+        $query->execute(array('id' => $this->id, 'taskname' => $this->taskname, 'priority' => $this->priority, 'classname' => $this->classname, 'description' => $this->description));
+        $row = $query->fetch();
+        Kint::dump($row);
+    }
+    
+    public function destroy($id){
+        $query = DB::connection()->prepare('DELETE FROM Task WHERE id = :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+        
+        
+    }
+    
+    
+    
+    
 }
+
+
 
 
 

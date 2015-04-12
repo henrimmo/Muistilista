@@ -8,7 +8,7 @@
     TaskController::index();
   });
   
-
+  
   
   
   $routes->post('/task', function(){
@@ -23,23 +23,42 @@
     TaskController::show($id);
   });
   
-
+  $routes->get('/task/:id/edit', function($id){
+      TaskController::edit($id);
+  });
+  
+  $routes->post('/task/:id/edit', function($id) {
+      TaskController::update($id); 
+  });
+  
+  $routes->get('/task/:id/destroy', function($id){
+      TaskController::destroy($id); 
+  });
+  
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });
   
-  $routes->get('/lista', function() {
-    HelloWorldController::task_list();
+  $routes->get('/login', function(){
+     UserController::login(); 
   });
   
-  $routes->get('/login', function() {
-    HelloWorldController::login();
-  });
+    $routes->post('/login', function(){
+     UserController::handle_login(); 
+    });
   
-  $routes->get('/edit/1', function() {
-    HelloWorldController::edit();
-  });
-  
-  $routes->get('/lista/1', function() {
-    HelloWorldController::listShow();
-  });
+//  $routes->get('/lista', function() {
+//    HelloWorldController::task_list();
+//  });
+//  
+//  $routes->get('/login', function() {
+//    HelloWorldController::login();
+//  });
+//  
+//  $routes->get('/edit/1', function() {
+//    HelloWorldController::edit();
+//  });
+//  
+//  $routes->get('/lista/1', function() {
+//    HelloWorldController::listShow();
+//  });

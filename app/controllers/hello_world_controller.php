@@ -8,11 +8,15 @@
     }
     
     public static function sandbox(){
-      $pyykki = Task::find(1);
-      $tasks = Task::all();
+      $pyykki = new Task(array(
+          'taskname' =>'d',
+          'priority' => 'kiireellinen', 
+          'classname' => 'koti'
+          
+      ));
+      $errors = $pyykki->errors();
       
-      Kint::dump($tasks);
-      Kint::dump($pyykki);
+      Kint::dump($errors);
     }
     
     public static function task_list() {

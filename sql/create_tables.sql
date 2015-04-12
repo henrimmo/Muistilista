@@ -24,7 +24,7 @@ priority varchar(10),
 classname varchar(10),
 description varchar(100), 
 status boolean DEFAULT FALSE,
-account_id INTEGER REFERENCES Account(id),
+account INTEGER REFERENCES Account(id),
 priority_id INTEGER REFERENCES PriorityScale(id),
 class_id INTEGER REFERENCES TaskClass(id)
 );

@@ -2,7 +2,8 @@
 INSERT INTO Account (username, password) VALUES ('Lollero','Pallero123');
 INSERT INTO Account (username, password) VALUES ('Pallero','Lollero123');
 
-INSERT INTO Task (taskname,priority,classname,description) VALUES ('Vie roskat','kiire','koti','vie jo!');
+INSERT INTO Task (taskname,priority,classname,description, account) VALUES ('Vie roskat','kiire','koti','vie jo!', (select id from account where username ='Pallero'));
+INSERT INTO Task (taskname,priority,classname,description, account) VALUES ('Vie pyykit','kiire','koti','vie jo!', (select id from account where username ='Lollero'));
 
 INSERT INTO TaskClass (classname) VALUES ('Kotsa');
 

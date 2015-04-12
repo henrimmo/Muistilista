@@ -21,4 +21,4 @@ Salasana: Lollero123
 Käyttäjätunnus: Lollero
 Salasana: Pallero123
 
-Kirjautumisen lisääminen rikkoi nähtävästi askareen muokkauksen(joka toimi ennen kirjautumista) :/
+

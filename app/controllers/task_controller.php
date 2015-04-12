@@ -66,15 +66,15 @@ class TaskController extends BaseController{
         $errors = $task->errors();
         
         
-//        if(count($errors) == 0){
-//            $task->update();
-//           
-//           Redirect::to('/task/' . $task->id, array('message' => 'Askaretta muokattu onnistuneesti!'));
-//            
-//            
-//        }else{
-//            View::make('task/edit.html', array('errors' => $errors, 'attributes' => $attributes));
-//        }
+        if(count($errors) == 0){
+            $task->update();
+           
+           Redirect::to('/task/' . $task->id, array('message' => 'Askaretta muokattu onnistuneesti!'));
+            
+            
+        }else{
+            View::make('task/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+        }
     }
     
     public static function destroy($id){

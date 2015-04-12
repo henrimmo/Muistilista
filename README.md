@@ -14,4 +14,9 @@ Yleisiä linkkejä:
 
 Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html) 
 
-En saanut kirjautumista toimimaan :/
+Testikäyttäjiä:
+Käyttäjätunnus: Pallero
+Salasana: Lollero123
+
+Käyttäjätunnus: Lollero
+Salasana: Pallero123

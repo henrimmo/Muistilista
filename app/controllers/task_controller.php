@@ -28,7 +28,7 @@ class TaskController extends BaseController{
       'priority' => $params['priority'],
       'classname' => $params['classname'],
       'description' => $params['description'],
-       'account' => $params['account']
+      'account' => $_SESSION['account']
       
     );
     $task = new Task($attributes);

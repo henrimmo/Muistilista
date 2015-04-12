@@ -64,7 +64,7 @@ class Task extends BaseModel {
     }
     
     public function save(){
-    $query = DB::connection()->prepare('INSERT INTO Task (account, taskname, priority, classname, description) VALUES (:taskname, :priority, :classname , :description) RETURNING id');
+    $query = DB::connection()->prepare('INSERT INTO Task (account, taskname, priority, classname, description) VALUES (:account, :taskname, :priority, :classname , :description) RETURNING id');
     $query->execute(array('account'=> $_SESSION['account'], 'taskname' => $this->taskname, 'priority' => $this->priority, 'classname' => $this->classname, 'description' => $this->description));
     $row = $query->fetch();
 //    Kint::trace();

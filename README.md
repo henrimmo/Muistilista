@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](http://henrimmo.users.cs.helsinki.fi/tsoha/)
+* [Linkki sovellukseeni](http://henrimmo.users.cs.helsinki.fi/login/)
 * [Linkki dokumentaatiooni](https://github.com/henrimmo/Muistilista/blob/master/doc/dokumentaatio.pdf)
 * [Listaussivu](http://henrimmo.users.cs.helsinki.fi/tsoha/lista)
 * [Muokkaussivu](http://henrimmo.users.cs.helsinki.fi/tsoha/edit/1)
@@ -12,7 +12,7 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html) 
+(http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html) 
 
 Testikäyttäjiä:
 Käyttäjätunnus: Pallero

@@ -8,11 +8,11 @@
 
 class Task extends BaseModel {
     
-    public $id, $taskname, $priority,  $classname, $description, $status, $account, $priority_id, $class_id;
+    public $id, $taskname, $priority,  $classname, $description, $status, $account;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_taskname', 'validate_classname');
+        $this->validators = array('validate_taskname');
     }
     
     public static function all() {
@@ -31,9 +31,7 @@ class Task extends BaseModel {
                 'classname' => $row['classname'],
                 'description' => $row['description'],
                 'status' => $row['status'],
-                'account' => $row['account'],
-                'priority_id' => $row['priority_id'],
-                'class_id' => $row['class_id']
+                'account' => $row['account']
             ));
         }
         return $tasks;
@@ -54,9 +52,9 @@ class Task extends BaseModel {
                 'classname' => $row['classname'],
                 'description' => $row['description'],
                 'status' => $row['status'],
-                'account' => $row['account'],
-                'priority_id' => $row['priority_id'],
-                'class_id' => $row['class_id']
+                'account' => $row['account']
+                
+                
             ));
             return $task;
         }
@@ -79,9 +77,9 @@ class Task extends BaseModel {
         return parent::validate_string_length($this->taskname, 3);
     }
     
-    public function validate_classname(){
-        return parent::validate_string_length($this->classname, 1);
-    }
+//    public function validate_classname(){
+//        return parent::validate_string_length($this->classname, 1);
+//    }
     
     public function update(){
         $query = DB::connection()->prepare('UPDATE Task SET (taskname, priority, classname, description) = (:taskname, :priority, :classname, :description) where id = :id');

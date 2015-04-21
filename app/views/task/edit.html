@@ -26,7 +26,11 @@
 
     <div class="form-group">
       <label>Luokka</label>
-      <input name="classname" class="form-control" type="text" value="{{attributes.classname}}">
+            <select class="form-control" name="taskclass">
+          {% for taskclass in taskclasses %}
+          <option value="{{taskclass.id}}">{{taskclass.classname}}</option>
+          {% endfor %}
+       </select>  
     </div>
 
     <div class="form-group">

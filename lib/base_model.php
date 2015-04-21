@@ -34,12 +34,12 @@
         
         $errors = array();
         if($string== '' || $string == null){
-            $errors[] = 'Merkkijono ei saa olla tyhjä';
-        }
+            $errors[] = $string . ' ei saa olla tyhjä! Pituuden oltava vähintään ' . $length . ' merkkiä.';
+        } else
         
         
         if(strlen($string) < $length){
-            $errors[] = 'Merkkijono on liian lyhyt!';
+            $errors[] = $string .' on liian lyhyt! Pituuden oltava vähintään ' . $length . ' merkkiä.';
         }
         return $errors;
     }

@@ -8,7 +8,21 @@
     TaskController::index();
   });
   
+  $routes->get('/class',  function (){
+      TaskClassController::index();
+  });
   
+  $routes->get('/class/new', function(){
+  TaskClassController::create();
+  });
+  
+  $routes->get('/class/:id/destroy', function($id){
+  TaskClassController::destroy($id); 
+  });
+  
+  $routes->post('/class', function(){
+  TaskClassController::store();
+  });
   
   
   $routes->post('/task', function(){
@@ -47,6 +61,12 @@
      UserController::handle_login(); 
     });
   
+    $routes->post('/logout', function(){
+    UserController::logout();
+        
+    });
+        
+    
 //  $routes->get('/lista', function() {
 //    HelloWorldController::task_list();
 //  });

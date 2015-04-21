@@ -64,7 +64,7 @@ class TaskClass extends BaseModel {
         $query = DB::connection()->prepare('UPDATE TaskClass SET (classname) = (:classname) where id = :id');
         $query->execute(array('id' => $this->id,  'classname' => $this->classname));
         $row = $query->fetch();
-        Kint::dump($row);
+//        Kint::dump($row);
     }
     
     public function destroy($id){
@@ -73,6 +73,23 @@ class TaskClass extends BaseModel {
         $row = $query->fetch();
         
         
+    }
+    
+    
+    public static function findClasses($id) {
+        $query = DB::connection()->prepare('SELECT * FROM TaskClass '
+                . 'JOIN Classes ON TaskClass.id = Classes.class_id '
+                . 'WHERE Classes.task_id = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $classes = array();
+        foreach ($rows as $row) {
+            $classes[] = new TaskClass(array(
+                'id' => $row['id'],
+                'classname' => $row['classname']
+            ));
+        }
+        return $classes;
     }
 }
 

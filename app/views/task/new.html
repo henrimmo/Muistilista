@@ -25,9 +25,9 @@
 
     <div class="form-group">
       <label>Luokka</label>
-      <select class="form-control" name="taskclass">
-          {% for taskclass in taskclasses %}
-            <option value="{{taskclass.id}}">{{taskclass.classname}}</option>
+      <select class="form-control" name="classes[]" multiple="">
+          {% for class in classes %}
+            <option value="{{class.id}}">{{class.classname}}</option>
           {% endfor %}
       </select>
      

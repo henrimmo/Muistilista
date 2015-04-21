@@ -11,7 +11,10 @@
     
 
     <li><strong>Tärkeysaste:</strong> {{task.priority}}</li>
-    <li>Luokka: <a href ="{{base_path}}/class/{{taskclass.id}}">{{taskclass.classname}}</a></li>
+    <li><strong>Luokka:</strong>              
+        {% for class in task.classes %}
+              {{class.classname}}
+              {% endfor %}</li>
      <li><strong>Status:</strong>
               {% if task.status %}
                 <label class="label label-success">tehty

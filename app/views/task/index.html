@@ -23,7 +23,11 @@
         <tr>
           <td><a href="{{base_path}}/task/{{task.id}}">{{task.taskname}}</td>
           <td>{{task.priority}}</td>
-          <td><a href="{{base_path}}/class/{{task.classname}}">{{taskclass.classname}}</td>
+          <td>
+              {% for class in task.classes %}
+              {{class.classname}}
+              {% endfor %}
+              </td>
           <td>
               {% if task.status %}
                 <label class="label label-success">tehty

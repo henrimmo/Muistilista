@@ -8,7 +8,7 @@
 
 class Task extends BaseModel {
     
-    public $id, $taskname, $priority,  $classname, $description, $status, $account;
+    public $id, $taskname, $priority, $description, $status, $account, $classes;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -28,10 +28,10 @@ class Task extends BaseModel {
                 'id' => $row['id'],
                 'taskname' => $row['taskname'],
                 'priority' => $row['priority'],
-                'classname' => $row['classname'],
                 'description' => $row['description'],
                 'status' => $row['status'],
-                'account' => $row['account']
+                'account' => $row['account'],
+                'classes' => TaskClass::findClasses($row['id'])
             ));
         }
         return $tasks;
@@ -49,10 +49,10 @@ class Task extends BaseModel {
                 'id' => $row['id'],
                 'taskname' => $row['taskname'],
                 'priority' => $row['priority'],
-                'classname' => $row['classname'],
                 'description' => $row['description'],
                 'status' => $row['status'],
-                'account' => $row['account']
+                'account' => $row['account'],
+                'classes' => TaskClass::findClasses($id)
                 
                 
             ));
@@ -62,12 +62,17 @@ class Task extends BaseModel {
     }
     
     public function save(){
-    $query = DB::connection()->prepare('INSERT INTO Task (account, taskname, priority, classname, description) VALUES (:account, :taskname, :priority, :classname , :description) RETURNING id');
-    $query->execute(array('account'=> $_SESSION['account'], 'taskname' => $this->taskname, 'priority' => $this->priority, 'classname' => $this->classname, 'description' => $this->description));
+    $query = DB::connection()->prepare('INSERT INTO Task (account, taskname, priority, description, status) VALUES (:account, :taskname, :priority, :description, :status) RETURNING id');
+    $query->execute(array('account'=> $_SESSION['account'], 'taskname' => $this->taskname, 'priority' => $this->priority, 'description' => $this->description, 'status' => $this->status));
     $row = $query->fetch();
 //    Kint::trace();
 //    Kint::dump($row);
     $this->id = $row['id'];
+    
+    foreach ($this->classes as $class){
+        $this->saveTasksClasses($class, $row['id']);
+    }
+    
   }
   
   
@@ -82,10 +87,20 @@ class Task extends BaseModel {
 //    }
     
     public function update(){
-        $query = DB::connection()->prepare('UPDATE Task SET (taskname, priority, classname, description) = (:taskname, :priority, :classname, :description) where id = :id');
-        $query->execute(array('id' => $this->id, 'taskname' => $this->taskname, 'priority' => $this->priority, 'classname' => $this->classname, 'description' => $this->description));
+        $query = DB::connection()->prepare('UPDATE Task SET (taskname, priority, description, status) = (:taskname, :priority, :description, :status) where id = :id');
+        $query->execute(array('id' => $this->id, 'taskname' => $this->taskname, 'priority' => $this->priority, 'description' => $this->description, 'status' => $this->status ));
         $row = $query->fetch();
-        Kint::dump($row);
+//        Kint::dump($row);
+        
+        $deletequery = DB::connection()->prepare('DELETE FROM Classes where task_id = :task_id');
+        $deletequery->execute(array('task_id' => $this->id));
+        $row = $query->fetch();
+
+
+
+        foreach ($this->classes as $class){
+            $this->saveTasksClasses($class, $this->id);
+    }
     }
     
     public function destroy($id){
@@ -95,6 +110,16 @@ class Task extends BaseModel {
         
         
     }
+    
+    public function saveTasksClasses($class, $id) {
+        $query = DB::connection()->prepare
+                ('INSERT INTO Classes (task_id, class_id) VALUES (:task_id, :class_id)');
+        $query->execute(array(
+            'task_id' => $id,
+            'class_id' => $class
+                )
+        );
+    }    
     
     
     

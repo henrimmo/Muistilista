@@ -16,8 +16,8 @@ class TaskController extends BaseController{
     
     public static function create() {
         self::check_logged_in();
-        $classnames = TaskClass::all();
-        View::make('task/new.html', array('classnames' => $classnames));
+        $classes = TaskClass::all();
+        View::make('task/new.html', array('classes' => $classes));
         
     }public static function show($id) {
         self::check_logged_in();
@@ -28,26 +28,25 @@ class TaskController extends BaseController{
     public static function store(){
         self::check_logged_in();
         $params = $_POST;
-        $classname = $params['classname'];
+        $classes = $params['classes'];
         $attributes= array(
           'taskname' => $params['taskname'],
           'priority' => $params['priority'],
-          'classname' => $classname,
           'description' => $params['description'],
           'account' => $_SESSION['account']
-      
+           
         );
-        
-
-        
+        foreach($classes as $class) {
+            $attributes['classes'][] = $class;}
+                
         $task = new Task($attributes);
         $errors = $task->errors();
 
         if(count($errors) == 0) {
             $task->save();
-            Redirect::to('/task/' . $task->id, array('message' => 'Askare lisätty muistilistaasi!'));
+            Redirect::to('/task/' . $task->id, array('message' => 'Askare lisÃ¤tty muistilistaasi!'));
         }else{
-            View::make('task/new.html', array('errors'=>$errors, 'attributes' => $attributes));
+            View::make('task/new.html', array('errors'=>$errors, 'attributes' => $attributes, 'classes' => TaskClass::all()));
         }
     
   }
@@ -55,25 +54,26 @@ class TaskController extends BaseController{
   public static function edit($id){
       self::check_logged_in();
         $task = Task::find($id);
-        $classnames = TaskClass::all();
-        View::make('task/edit.html', array('attributes' => $task, 'classnames'=> $classnames));
+        $classes = TaskClass::all();
+        View::make('task/edit.html', array('attributes' => $task, 'classes'=> $classes));
     }
     
     public static function update($id){
         self::check_logged_in();
         $params = $_POST;
-        $classname = $params['classname'];
-        
+        $classes = $params['classes'];
         $attributes = array(
             'id' => $id,
             'taskname' => $params['taskname'],
             'priority' => $params['priority'],
-            'classname' => $classname,
             'description' => $params['description'],
-            'account' => $_SESSION['account']
+            'account' => $_SESSION['account'],
+            'classes' => array()
         );
         
-//      Kint::dump($params);
+        foreach($classes as $class) {
+            $attributes['classes'][] = $class;
+        }
         
         $task = new Task($attributes);
         $errors = $task->errors();
@@ -86,8 +86,7 @@ class TaskController extends BaseController{
             
             
         }else{
-            View::make('task/edit.html', array('errors' => $errors, 'attributes' => $attributes));
-        }
+            View::make('task/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'classes' => TaskClass::all()));}
     }
     
     public static function destroy($id){
@@ -100,5 +99,3 @@ class TaskController extends BaseController{
         
     }
 }
-    
-

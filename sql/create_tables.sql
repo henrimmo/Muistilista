@@ -15,7 +15,6 @@ CREATE TABLE Task(
 id SERIAL PRIMARY KEY,
 taskname varchar(30) NOT NULL,
 priority varchar(10),
-classname INTEGER REFERENCES TaskClass(id),
 description varchar(100), 
 status boolean DEFAULT FALSE,
 account INTEGER REFERENCES Account(id)

@@ -12,7 +12,7 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-(http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html) 
+http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html
 
 Testikäyttäjiä:
 Käyttäjätunnus: Pallero

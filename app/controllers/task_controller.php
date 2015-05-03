@@ -67,13 +67,23 @@ class TaskController extends BaseController{
             'taskname' => $params['taskname'],
             'priority' => $params['priority'],
             'description' => $params['description'],
+            
+            
+            
             'account' => $_SESSION['account'],
             'classes' => array()
         );
-        
+        if(isset($params['classes'])){
         foreach($classes as $class) {
             $attributes['classes'][] = $class;
         }
+        } else {
+            $attributes['classes'] = null;
+        }
+        
+        if(isset($_POST['status'])){
+                $attributes['status'] = $params['status'];
+            }
         
         $task = new Task($attributes);
         $errors = $task->errors();

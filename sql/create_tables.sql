@@ -7,16 +7,16 @@ password varchar(30) NOT NULL
 
 CREATE TABLE TaskClass(
 id SERIAL PRIMARY KEY,
-classname varchar(20)
+classname varchar(20) NOT NULL
 );
 
 
 CREATE TABLE Task(
 id SERIAL PRIMARY KEY,
 taskname varchar(30) NOT NULL,
-priority varchar(10),
+priority INTEGER,
 description varchar(100), 
-status boolean DEFAULT FALSE,
+status INTEGER DEFAULT 0,
 account INTEGER REFERENCES Account(id)
 );
 
